@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="landing-page">
+    <div class="container-fluid vh-100 d-flex align-items-center justify-content-center">
+        <div class="text-center">
+            <div class="logo-container mb-4">
+                <a href="{% url 'home' %}" class="logo-link">
+                    <img src="{% static 'images/logo.png' %}" alt="BrandonUbuntuDev" class="landing-logo">
+                </a>
+            </div>
+            <h1 class="display-4 mb-3">Welcome to BrandonUbuntuDev</h1>
+            <p class="lead mb-4">Your comprehensive guide to Ubuntu Desktop and Server</p>
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg">
+                <i class="fas fa-rocket me-2"></i>Enter Site
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

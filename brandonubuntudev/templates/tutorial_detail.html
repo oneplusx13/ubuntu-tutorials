@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ tutorial.title }} - BrandonUbuntuDev{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" height="40" class="me-2">
+            BrandonUbuntuDev
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'quickstart' %}">Quick Start</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tutorials' %}">Tutorials</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <article class="tutorial-content">
+                <header class="mb-4">
+                    <h1>{{ tutorial.title }}</h1>
+                    <div class="tutorial-meta mb-3">
+                        <span class="badge bg-{{ tutorial.difficulty|lower }} me-2">{{ tutorial.get_difficulty_display }}</span>
+                        <span class="badge bg-secondary me-2">{{ tutorial.category.name }}</span>
+                        <small class="text-muted">Published {{ tutorial.created_at|date:"F d, Y" }}</small>
+                        {% if tutorial.updated_at != tutorial.created_at %}
+                        <small class="text-muted"> • Updated {{ tutorial.updated_at|date:"F d, Y" }}</small>
+                        {% endif %}
+                    </div>
+                </header>
+                
+                <div class="tutorial-body">
+                    {{ tutorial.content|linebreaks }}
+                </div>
+            </article>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="sidebar">
+                <h4>Related Tutorials</h4>
+                {% for related in related_tutorials %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6 class="card-title">{{ related.title }}</h6>
+                        <span class="badge bg-{{ related.difficulty|lower }} mb-2">{{ related.get_difficulty_display }}</span>
+                        <a href="{{ related.get_absolute_url }}" class="btn btn-sm btn-outline-primary">Read</a>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-muted">No related tutorials available.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-white py-4 mt-auto">
+    <div class="container text-center">
+        <p>&copy; 2024 BrandonUbuntuDev. All rights reserved.</p>
+    </div>
+</footer>
+{% endblock %}

@@ -1,0 +1,124 @@
+:root {
+    --primary-color: #E95420;
+    --secondary-color: #77216F;
+    --success-color: #38B44A;
+    --dark-color: #2C3E50;
+    --light-color: #AEA79F;
+}
+
+body {
+    font-family: 'Ubuntu', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
+.landing-page {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    min-height: 100vh;
+}
+
+.landing-logo {
+    max-width: 200px;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.landing-logo:hover {
+    transform: scale(1.05);
+}
+
+.logo-link {
+    text-decoration: none;
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.tutorial-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.tutorial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.badge.bg-beginner {
+    background-color: var(--success-color) !important;
+}
+
+.badge.bg-intermediate {
+    background-color: #f39c12 !important;
+}
+
+.badge.bg-advanced {
+    background-color: #e74c3c !important;
+}
+
+.navbar-brand img {
+    filter: brightness(1.1);
+}
+
+.tutorial-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.tutorial-content h1, .tutorial-content h2, .tutorial-content h3 {
+    color: var(--dark-color);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.tutorial-content code {
+    background-color: #f8f9fa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
+}
+
+.tutorial-content pre {
+    background-color: #2d3748;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.sidebar {
+    position: sticky;
+    top: 2rem;
+}
+
+footer {
+    margin-top: auto;
+}
+
+@media (max-width: 768px) {
+    .landing-logo {
+        max-width: 150px;
+    }
+    
+    .display-4 {
+        font-size: 2rem;
+    }
+    
+    .feature-card {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+}

@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" height="40" class="me-2">
+            BrandonUbuntuDev
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'quickstart' %}">Quick Start</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'tutorials' %}">Tutorials</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="hero-section py-5 bg-gradient">
+    <div class="container text-center text-white">
+        <h1 class="display-4 mb-4">Master Ubuntu with Expert Tutorials</h1>
+        <p class="lead mb-4">From beginner basics to advanced server administration</p>
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-3">
+                <div class="feature-card">
+                    <i class="fas fa-desktop fa-3x mb-3"></i>
+                    <h4>Desktop Tutorials</h4>
+                    <p>Learn Ubuntu Desktop features and customization</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="feature-card">
+                    <i class="fas fa-server fa-3x mb-3"></i>
+                    <h4>Server Guides</h4>
+                    <p>Master Ubuntu Server administration and deployment</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="feature-card">
+                    <i class="fas fa-terminal fa-3x mb-3"></i>
+                    <h4>Command Line</h4>
+                    <p>Become proficient with the Ubuntu terminal</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="mb-4">Featured Tutorials</h2>
+            <div class="row">
+                {% for tutorial in featured_tutorials %}
+                <div class="col-12 mb-3">
+                    <div class="card tutorial-card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ tutorial.title }}</h5>
+                            <p class="card-text">{{ tutorial.content|truncatewords:20 }}</p>
+                            <span class="badge bg-{{ tutorial.difficulty|lower }} me-2">{{ tutorial.get_difficulty_display }}</span>
+                            <span class="badge bg-secondary">{{ tutorial.category.name }}</span>
+                            <a href="{{ tutorial.get_absolute_url }}" class="btn btn-primary btn-sm mt-2">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No featured tutorials available yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <h2 class="mb-4">Recent Tutorials</h2>
+            <div class="row">
+                {% for tutorial in recent_tutorials %}
+                <div class="col-12 mb-3">
+                    <div class="card tutorial-card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ tutorial.title }}</h5>
+                            <p class="card-text">{{ tutorial.content|truncatewords:20 }}</p>
+                            <span class="badge bg-{{ tutorial.difficulty|lower }} me-2">{{ tutorial.get_difficulty_display }}</span>
+                            <span class="badge bg-secondary">{{ tutorial.category.name }}</span>
+                            <a href="{{ tutorial.get_absolute_url }}" class="btn btn-primary btn-sm mt-2">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p>No tutorials available yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="bg-dark text-white py-4 mt-5">
+    <div class="container text-center">
+        <p>&copy; 2024 BrandonUbuntuDev. All rights reserved.</p>
+        <p>Empowering Ubuntu users worldwide</p>
+    </div>
+</footer>
+{% endblock %}

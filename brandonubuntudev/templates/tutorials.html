@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}All Tutorials - BrandonUbuntuDev{% endblock %}
+
+{% block content %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'images/logo.png' %}" alt="Logo" height="40" class="me-2">
+            BrandonUbuntuDev
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'quickstart' %}">Quick Start</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'tutorials' %}">Tutorials</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">All Tutorials</h1>
+            
+            <!-- Filters -->
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <form method="get" class="d-flex">
+                        <select name="category" class="form-select me-2">
+                            <option value="">All Categories</option>
+                            {% for category in categories %}
+                            <option value="{{ category.name }}" {% if selected_category == category.name %}selected{% endif %}>
+                                {{ category.name }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <select name="difficulty" class="form-select me-2">
+                            <option value="">All Levels</option>
+                            <option value="beginner" {% if selected_difficulty == 'beginner' %}selected{% endif %}>Beginner</option>
+                            <option value="intermediate" {% if selected_difficulty == 'intermediate' %}selected{% endif %}>Intermediate</option>
+                            <option value="advanced" {% if selected_difficulty == 'advanced' %}selected{% endif %}>Advanced</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        {% for tutorial in tutorials %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card tutorial-card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ tutorial.title }}</h5>
+                    <p class="card-text">{{ tutorial.content|truncatewords:20 }}</p>
+                    <span class="badge bg-{{ tutorial.difficulty|lower }} me-2">{{ tutorial.get_difficulty_display }}</span>
+                    <span class="badge bg-secondary">{{ tutorial.category.name }}</span>
+                    <small class="text-muted d-block mt-2">{{ tutorial.created_at|date:"M d, Y" }}</small>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ tutorial.get_absolute_url }}" class="btn btn-primary">Read Tutorial</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <h4>No tutorials found</h4>
+                <p>Try adjusting your filters or check back later for new content!</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<footer class="bg-dark text-white py-4 mt-auto">
+    <div class="container text-center">
+        <p>&copy; 2024 BrandonUbuntuDev. All rights reserved.</p>
+    </div>
+</footer>
+{% endblock %}
